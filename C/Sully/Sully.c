@@ -1,17 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define NAME "Sully_%i"
-#define FILENAME "%s.c"
-#define CMD "gcc -O %s -o %s && ./%s"
+#define CFILE "Sully_%i.c"
+#define CMD "/usr/bin/gcc -O Sully_%i.c -o Sully_%i && ./Sully_%i"
+#define STR "#include <stdio.h>%c#include <stdlib.h>%c#define CFILE %c%s%c%c#define CMD %c%s%c%c#define STR %c%s%c%cint main(){%cint i=%i;%cchar cfile[12],cmd[120];%csprintf(cfile,CFILE,i);sprintf(cmd,CMD,i,i,i);void *fd=fopen(cfile,%cw%c);%cif(fd&&i>=0){%cfprintf(fd,STR,10,10,34,CFILE,34,10,34,CMD,34,10,34,STR,34,10,10,i-1,10,10,34,34,10,10,10,10);return(system(cmd));%c}%c}"
 int main(){
- int i=5;
- char filename[12],name[10],cmd[64];
- sprintf(name,NAME,i);
- sprintf(filename,FILENAME,name);
- sprintf(cmd,CMD,filename,name,name);
- void *fd=fopen(filename,"w");
- if(fd){
-  char *a="#include <stdio.h>%c#include <stdlib.h>%c#define NAME %c%s%c%c#define FILENAME %c%s%c%c#define CMD %c%s%c%cint main(){%c int i=%i;%c char filename[12],name[10],cmd[64];%c sprintf(name,NAME,i);%c sprintf(filename,FILENAME,name);%c sprintf(cmd,CMD,filename,name,name);%c void *fd=fopen(filename,%cw%c);%c if(fd){%c  char *a=%c%s%c;%c  fprintf(fd,a,10,10,34,NAME,34,10,34,FILENAME,34,10,34,CMD,34,10,10,i-1,10,10,10,10,10,34,34,10,10,34,a,34,10,10,10);%c }%c}";
-  fprintf(fd,a,10,10,34,NAME,34,10,34,FILENAME,34,10,34,CMD,34,10,10,i-1,10,10,10,10,10,34,34,10,10,34,a,34,10,10,10);
- }
+int i=5;
+char cfile[12],cmd[120];
+sprintf(cfile,CFILE,i);sprintf(cmd,CMD,i,i,i);void *fd=fopen(cfile,"w");
+if(fd&&i>=0){
+fprintf(fd,STR,10,10,34,CFILE,34,10,34,CMD,34,10,34,STR,34,10,10,i-1,10,10,34,34,10,10,10,10);return(system(cmd));
 }
+} 

@@ -3,7 +3,7 @@ SRC		:= $(NAME).c
 OBJ		:=	$(NAME).o
 
 $(NAME): 
-	@gcc -Wall -Wextra -Werror -O $(SRC) -o $(NAME)
+	@/usr/bin/gcc -O $(SRC) -o $(NAME)
 
 all: $(NAME)
 
@@ -12,5 +12,7 @@ clean:
 
 re: clean all
 
+test: re 
+	./$(NAME)
 
 .PHONY: all clean re test
